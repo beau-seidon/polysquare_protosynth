@@ -1,12 +1,13 @@
 # polysquare_protosynth
 
-MIDI-controlled 6-voice polyphonic square wave synthesizer based on the ESP-32 (NodeMCU-32S Dev Kit).
+MIDI-controlled 8-voice polyphonic square wave synthesizer based on the ESP-32 (NodeMCU-32S Dev Kit).
 
 ![img1](./other%20resources/polysquare_protosynth_image.jpg)
 
 
 ### To-Do:
-- create wiring diagram
-- add additional non-square voice on DAC pin
 - add dip-switch MIDI channel selection
-- add toggle to disable tuning pots
+- add dip-switch toggle to enable/disable tuning pots
+- add dip-switch toggle to swap between normal 8-voice square mode or monophonic dual-channel DAC mode for aribitrary 8-bit wave generation
+- update wiring diagram
+- create BOM and upload or link to datasheets

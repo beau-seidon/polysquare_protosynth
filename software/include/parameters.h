@@ -33,6 +33,12 @@ extern bool LED_state;
 extern unsigned long int t_LED;        
 
 
+/* MIDI Channel Switches */
+extern bool MIDI_switch_states[4];
+
+extern int synth_midi_channel;
+
+
 /* ADSR envelope (not implemented yet) */
 
 // extern int A;

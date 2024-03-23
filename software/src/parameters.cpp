@@ -30,6 +30,12 @@ bool LED_state = 0;
 unsigned long int t_LED;        
 
 
+/* MIDI Channel Switches */
+bool MIDI_switch_states[4];
+
+int synth_midi_channel = 8;
+
+
 /* ADSR envelope (not implemented yet) */
 
 // int A  = 0;                                  // time in ms

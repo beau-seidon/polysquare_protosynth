@@ -9,7 +9,7 @@ void initialize_midi() {
     midi2.setHandleNoteOn(handleNoteOn);
     midi2.setHandleNoteOff(handleNoteOff);
     midi2.setHandleControlChange(handleControlChange);
-    midi2.begin(SYNTH_MIDI_CHANNEL);
+    midi2.begin(synth_midi_channel);
 }
 
 

@@ -3,10 +3,10 @@
 
 
 void shift_register_setup() {
-  pinMode(SR_LD_PIN, OUTPUT);
-  pinMode(SR_CLKINH_PIN, OUTPUT);
-  pinMode(SR_CLK_PIN, OUTPUT);
-  pinMode(SR_QH_PIN, INPUT);
+    pinMode(SR_LD_PIN, OUTPUT);
+    pinMode(SR_CLKINH_PIN, OUTPUT);
+    pinMode(SR_CLK_PIN, OUTPUT);
+    pinMode(SR_QH_PIN, INPUT);
 }
 
 

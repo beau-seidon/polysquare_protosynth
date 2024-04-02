@@ -3,7 +3,7 @@
 
 
 double frequency(byte pitch) { 
-    return (DEFAULT_FREQ * coarse_tune) * pow(2, (((float)pitch - (69.0 + fine_tune)) / (12.0 * note_interval)));
+    return (DEFAULT_FREQ * coarse_tune) * pow(2, (((double)pitch - (69.0 + fine_tune)) / (12.0 * note_interval)));
 }
 
 

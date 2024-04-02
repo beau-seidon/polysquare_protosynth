@@ -10,12 +10,14 @@
 
 
 void setup() {
-    pinMode(LED_BUILTIN, OUTPUT);
-    Serial.begin(SERIAL1_BAUD);
-    Serial.println();
+    // Serial.begin(SERIAL1_BAUD);
+    // Serial.println();
 
     setup_dip();
     setup_pots();
+
+    pinMode(LED_BUILTIN, OUTPUT);
+
     initialize_voices();
     initialize_tuning();
     initialize_midi();

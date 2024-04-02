@@ -2,6 +2,11 @@
 
 
 
+/* initial config */
+
+byte dip_config = 0b00000000;
+
+
 /* notes */
 
 int note_buffer[MAX_VOICES] = {INVALID_NOTE};
@@ -16,12 +21,14 @@ int duty = pow(2, RESOLUTION) / 2;              // [15.0, 223.0]
 
 /* pot tuning/scale adjust */
 
-float pot_buffer[MAX_POTS];
+double pot_buffer[MAX_POTS];
 int active_pot = 0;
 
 double coarse_tune   = 1.0;                     // [0.5, 2.0]
 double fine_tune     = 0.0;                     // [-1.0, 1.0]
 double note_interval = 1.0;                     // [0.5, 2.0]
+
+bool tuning_enabled = true;
 
 
 /* activity indicator */

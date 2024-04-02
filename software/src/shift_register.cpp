@@ -10,18 +10,39 @@ void shift_register_setup() {
 }
 
 
+uint8_t SN74HC165_shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder) {
+    uint8_t value = 0;
+    uint8_t i;
+
+    for(i = 0; i < 8; ++i) {
+        if(bitOrder == LSBFIRST)
+            value |= digitalRead(dataPin) << i;
+        else
+            value |= digitalRead(dataPin) << (7 - i);
+
+        digitalWrite(clockPin, LOW);
+        digitalWrite(clockPin, HIGH);
+    }
+    return value;
+}
+
+
 byte read_shift_register() {
-    // Write pulse to load pin
+    digitalWrite(SR_CLKINH_PIN, HIGH);
+    digitalWrite(SR_CLK_PIN, LOW);
+
     digitalWrite(SR_LD_PIN, LOW);
     delayMicroseconds(5);
     digitalWrite(SR_LD_PIN, HIGH);
     delayMicroseconds(5);
 
-    // Get data from 74HC165
     digitalWrite(SR_CLK_PIN, HIGH);
     digitalWrite(SR_CLKINH_PIN, LOW);
-    byte incoming = shiftIn(SR_QH_PIN, SR_CLK_PIN, LSBFIRST);
-    digitalWrite(SR_CLKINH_PIN, HIGH);
 
-    return incoming;
+    byte input_state = SN74HC165_shiftIn(SR_QH_PIN, SR_CLK_PIN, LSBFIRST);
+
+    digitalWrite(SR_CLKINH_PIN, HIGH);
+    digitalWrite(SR_CLK_PIN, LOW);
+
+    return input_state;
 }

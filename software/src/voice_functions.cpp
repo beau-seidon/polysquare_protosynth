@@ -22,10 +22,10 @@ void initialize_voices() {
 
 
 void initialize_tuning() {
-    float pot_value;
+    double pot_value;
     for(int p = 0; p < MAX_POTS; p++) {
         pot_value = analogRead(POT_PINS[p]);
-        float prev_pot_value;
+        double prev_pot_value;
         pot_value = analogRead(POT_PINS[p]);
         pot_buffer[p] = pot_value;
     }
@@ -33,6 +33,8 @@ void initialize_tuning() {
 
 
 void read_pots() {
+    if (!tuning_enabled) return;
+
     if(active_pot >= MAX_POTS) active_pot = 0;
 
     double pot_value;

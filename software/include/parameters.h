@@ -5,6 +5,12 @@
 
 
 
+/* initial config */
+
+extern byte dip_config;
+
+
+
 /* notes */
 
 extern int note_buffer[MAX_VOICES];
@@ -19,12 +25,14 @@ extern int duty;
 
 /* pot tuning/scale adjust */
 
-extern float pot_buffer[MAX_POTS];
+extern double pot_buffer[MAX_POTS];
 extern int active_pot;
 
 extern double coarse_tune;
 extern double fine_tune;
 extern double note_interval;
+
+extern bool tuning_enabled;
 
 
 /* activity indicator */

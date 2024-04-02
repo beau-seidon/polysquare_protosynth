@@ -9,7 +9,7 @@ void setup_dip() {
 
 
 void read_dip() {
-    byte dip_config = read_shift_register();
+    dip_config = read_shift_register();
 
     // Serial.println("Pin States:");
     // Serial.println(dip_config, BIN);
@@ -27,5 +27,6 @@ void set_midi_channel(byte dip_config) {
 
 
 void set_tuning_mode(byte dip_config) {
-    
+    byte extracted_mode = (dip_config & DIP_TUNING_MASK) >> 3;
+    tuning_enabled = extracted_mode;
 }

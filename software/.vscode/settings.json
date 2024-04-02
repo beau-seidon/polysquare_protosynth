@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "random": "cpp",
-        "wiring_private.h": "c",
-        "cmath": "cpp"
-    }
-}

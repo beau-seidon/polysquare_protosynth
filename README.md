@@ -2,7 +2,7 @@
 
 MIDI-controlled 8-voice polyphonic square wave synthesizer based on the ESP-32 (NodeMCU-32S Dev Kit).
 
-![brain](./other%20resources/imagees/polysquare_protosynth_brain.jpg)
+![brain](./other%20resources/images/polysquare_protosynth_brain.jpg)
 
 
 ### To-Do:

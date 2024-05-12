@@ -20,4 +20,4 @@ void adjust_coarse_tune(double val);
 void adjust_fine_tune(double val);
 void adjust_interval_scale(double val);
 
-void update_active_voices();
+void update_active_voices(void);

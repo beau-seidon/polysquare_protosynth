@@ -10,7 +10,6 @@
 extern byte dip_config;
 
 
-
 /* notes */
 
 extern int note_buffer[MAX_VOICES];
@@ -38,10 +37,11 @@ extern bool tuning_enabled;
 /* activity indicator */
 
 extern bool LED_state;
-extern unsigned long int t_LED;        
+extern unsigned long int t_LED;
 
 
 /* MIDI Channel Switches */
+
 extern bool MIDI_switch_states[4];
 
 extern int synth_midi_channel;

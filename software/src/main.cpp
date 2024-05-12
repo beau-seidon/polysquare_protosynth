@@ -9,7 +9,8 @@
 
 
 
-void setup() {
+void setup()
+{
     // Serial.begin(SERIAL1_BAUD);
     // Serial.println();
 
@@ -24,7 +25,8 @@ void setup() {
 }
 
 
-void loop() {
+void loop()
+{
     read_midi();
     read_pots();
     show_activity(false);

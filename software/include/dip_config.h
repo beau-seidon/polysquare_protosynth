@@ -9,5 +9,5 @@
 
 void setup_dip(void);
 void read_dip(void);
-void set_midi_channel(byte);
-void set_tuning_mode(byte);
+void set_midi_channel(byte dip_config);
+void set_tuning_mode(byte dip_config);

@@ -4,8 +4,10 @@
 
 double frequency(byte pitch)
 {
-    return (DEFAULT_FREQ * coarse_tune) * pow(2, (((double)pitch - (69.0 + fine_tune)) / (12.0 * note_interval)));
+    int pitch_num = keyinvert_mode ? (127 - pitch) : pitch;
+    return (DEFAULT_FREQ * coarse_tune_adjust) * pow(2, ((pitch_num - (REFERENCE_NOTE - fine_tune_adjust)) / (TUNING_INTERVAL * note_interval_adjust)));
 }
+
 
 
 // modified version of arduino WMath function map
@@ -16,6 +18,7 @@ double range_limit(double x, double in_min, double in_max, double out_min, doubl
     const double delta = x - in_min;
     return (delta * rise) / run + out_min;
 }
+
 
 
 int get_note_buffer_position(int pitch)
@@ -29,14 +32,14 @@ int get_note_buffer_position(int pitch)
 }
 
 
+
 int get_active_voice_count()
 {
     int av = 0;
-    for (int n = 0; n < MAX_VOICES; n++) {
-        if (note_buffer[n] > INVALID_NOTE) av++;
-    }
+    for (int n = 0; n < MAX_VOICES; n++) { if (note_buffer[n] > INVALID_NOTE) av++; }
     return av;
 }
+
 
 
 void show_activity(bool action)
@@ -55,6 +58,7 @@ void show_activity(bool action)
         }
     }
 }
+
 
 
 void debug_print_buffers(const char *message, int *note_buffer, int *duty_buffer)

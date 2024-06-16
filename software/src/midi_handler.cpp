@@ -2,22 +2,31 @@
 
 
 
-MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, midi2);
+/* UART2 serial midi */
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, MIDI);
+
+/* USB-MIDI via Hairless MIDI Serial Bridge */
+// struct CustomBaudRateSettings : public MIDI_NAMESPACE::DefaultSerialSettings { static const long BaudRate = 115200; };
+// MIDI_NAMESPACE::SerialMIDI<HardwareSerial, CustomBaudRateSettings> serialMIDI(Serial);
+// MIDI_NAMESPACE::MidiInterface<MIDI_NAMESPACE::SerialMIDI<HardwareSerial, CustomBaudRateSettings>> MIDI((MIDI_NAMESPACE::SerialMIDI<HardwareSerial, CustomBaudRateSettings>&)serialMIDI);
+
 
 
 void initialize_midi()
 {
-    midi2.setHandleNoteOn(handleNoteOn);
-    midi2.setHandleNoteOff(handleNoteOff);
-    midi2.setHandleControlChange(handleControlChange);
-    midi2.begin(synth_midi_channel);
+    MIDI.setHandleNoteOn(handleNoteOn);
+    MIDI.setHandleNoteOff(handleNoteOff);
+    MIDI.setHandleControlChange(handleControlChange);
+    MIDI.begin(synth_midi_channel);
 }
+
 
 
 void read_midi()
 {
-    midi2.read();
+    MIDI.read();
 }
+
 
 
 void handleNoteOn(byte channel, byte pitch, byte velocity)
@@ -27,17 +36,19 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
 
         if (inactive_voice >= 0 && inactive_voice < MAX_VOICES) {
             note_buffer[inactive_voice] = pitch;
-            duty_buffer[inactive_voice] = velocity_to_duty(velocity);
+            duty_buffer[inactive_voice] = (duty_mode == DUTY_VEL) ? velocity_to_duty(velocity) : duty;
 
             ledcChangeFrequency(LED_CHANNELS[inactive_voice], frequency(pitch), RESOLUTION);
             ledcWrite(LED_CHANNELS[inactive_voice], duty_buffer[inactive_voice]);
 
-            active_voices = get_active_voice_count();
+            active_voices++;
+            // active_voices = get_active_voice_count();
 
             show_activity(true);
         }
     }
 }
+
 
 
 void handleNoteOff(byte channel, byte pitch, byte velocity)
@@ -51,14 +62,41 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 
             ledcWrite(LED_CHANNELS[active_voice], SILENCE);
 
-            active_voices = get_active_voice_count();
+            active_voices--;
+            // active_voices = get_active_voice_count();
         }
     }
 }
 
 
+
 void handleControlChange(byte channel, byte cc_number, byte cc_value)
 {
-    if (cc_number == 1) adjust_duty(cc_value);
-    if (cc_number == 123) initialize_voices();
+    if (cc_number == 1 || cc_number == 70) {
+        adjust_duty(cc_value);
+        return;
+    }
+
+    if (cc_number == 71) {
+        adjust_coarse_tune(cc_value, ADJUST_MODE::CC);
+        update_active_voices();
+        return;
+    }
+
+    if (cc_number == 72) {
+        adjust_fine_tune(cc_value, ADJUST_MODE::CC);
+        update_active_voices();
+        return;
+    }
+
+    if (cc_number == 73) {
+        adjust_interval_scale(cc_value, ADJUST_MODE::CC);
+        update_active_voices();
+        return;
+    }
+
+    if (cc_number == 123) {
+        initialize_voices();
+        return;
+    }
 }

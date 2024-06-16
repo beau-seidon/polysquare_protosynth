@@ -11,6 +11,7 @@ void shift_register_setup()
 }
 
 
+
 uint8_t SN74HC165_shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
 {
     uint8_t value = 0;
@@ -27,6 +28,7 @@ uint8_t SN74HC165_shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder)
     }
     return value;
 }
+
 
 
 byte read_shift_register()
